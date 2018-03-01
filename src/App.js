@@ -1,6 +1,8 @@
 import React from 'react'
 import * as BooksAPI from './BooksAPI'
+import BooksList from './BooksList'
 import CurrentlyReading from './CurrentlyReading'
+
 import WantToRead from './WantToRead'
 import Read from './Read'
 import './App.css'
@@ -28,6 +30,21 @@ componentDidMount(){
         });
     })
 }
+
+componentWillUpdate(){
+  BooksAPI.getAll().then((books) => {
+    this.setState({
+        books
+    });
+})
+}
+
+updateShelf = (book,shelf) => {
+  BooksAPI.update(book,shelf);
+  }
+
+
+
 
   render() {
     return (
@@ -60,9 +77,7 @@ componentDidMount(){
             </div>
             <div className="list-books-content">
               <div>
-              <CurrentlyReading books={this.state.books}/>
-              <WantToRead books={this.state.books}/>
-              <Read books={this.state.books}/>
+              <BooksList books={this.state.books} onSelectShelf={this.updateShelf}/>
               </div>
             </div>
             <div className="open-search">
