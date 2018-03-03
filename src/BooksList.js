@@ -7,6 +7,7 @@ class BooksList extends Component{
         books: PropTypes.array.isRequired,
         onSelectShelf: PropTypes.func.isRequired
     }
+
     render(){
         return(
             <div>
