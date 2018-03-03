@@ -54,8 +54,7 @@ class SearchBook extends Component{
               result.map((book)=> (
                   
               <li key={book.id}>
-                  {console.log(book)}
-                 <Book content={book} />
+                 <Book content={book} onSelectShelf={this.props.onSelectShelf} />
               </li>
                ))}
               </ol>

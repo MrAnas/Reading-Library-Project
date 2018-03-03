@@ -40,6 +40,7 @@ updateShelf = (book,shelf) => {
       this.setState(
         {queryResult: book}
     )
+    console.log(book)
     })
 }
 
@@ -68,7 +69,7 @@ updateShelf = (book,shelf) => {
       </div>
       )}/>
       <Route exact path='/search' render={()=>(
-        <SearchBook query={this.state.queryResult} queryResult={this.SearchForBook} />
+        <SearchBook query={this.state.queryResult} queryResult={this.SearchForBook} onSelectShelf={this.updateShelf}/>
       )
       }/>
       </div>
