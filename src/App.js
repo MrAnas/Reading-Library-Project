@@ -1,7 +1,7 @@
 import React from 'react'
 import {Link,Route} from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
-import BooksList from './BooksList'
+import BookShelf from './Bookshelf'
 import SearchBook from './SearchBook';
 import './App.css'
 
@@ -36,12 +36,22 @@ updateShelf = (book,shelf) => {
   }
 
   SearchForBook = (query) =>{
-    BooksAPI.search(query).then((book)=>{
-      this.setState(
-        {queryResult: book}
-    )
-    console.log(book)
-    })
+    // Please help me with this
+    BooksAPI.search(query).then((bookInSearchResults)=>{
+      this.state.books.map((bookOnHomePage) => {
+      bookInSearchResults.shelf = 'none'
+      console.log(bookInSearchResults.shelf)
+      console.log(bookInSearchResults.id === bookOnHomePage.id)
+      if(bookInSearchResults.id === bookOnHomePage.id){
+      bookInSearchResults.shelf = bookOnHomePage.shelf
+      
+    }
+    console.log(bookInSearchResults.shelf)
+    this.setState(
+      {queryResult: bookInSearchResults}
+  )})
+
+})
 }
 
 
@@ -58,7 +68,21 @@ updateShelf = (book,shelf) => {
             </div>
             <div className="list-books-content">
               <div>
-              <BooksList books={this.state.books} onSelectShelf={this.updateShelf}/>
+              <BookShelf 
+                books={this.state.books.filter((book)=> book.shelf ==='currentlyReading')} 
+                shelfTitle="Currently Reading"
+                onSelectShelf={this.updateShelf}
+              />
+              <BookShelf 
+                books={this.state.books.filter((book)=> book.shelf ==='wantToRead')} 
+                shelfTitle="Want To Read"
+                onSelectShelf={this.updateShelf}
+              />
+              <BookShelf 
+                books={this.state.books.filter((book)=> book.shelf ==='read')} 
+                shelfTitle="Read"
+                onSelectShelf={this.updateShelf}
+              />
               </div>
             </div>
             <div className="open-search">
@@ -69,7 +93,11 @@ updateShelf = (book,shelf) => {
       </div>
       )}/>
       <Route exact path='/search' render={()=>(
-        <SearchBook query={this.state.queryResult} queryResult={this.SearchForBook} onSelectShelf={this.updateShelf}/>
+        <SearchBook 
+        query={this.state.queryResult} 
+        queryResult={this.SearchForBook} 
+        onSelectShelf={this.updateShelf}
+        />
       )
       }/>
       </div>

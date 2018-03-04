@@ -13,14 +13,17 @@ handleChange = (event) =>{
 
 
  render(){
+   let bookImage = ''
+   if(this.props.content.imageLinks !== undefined)
+    bookImage = this.props.content.imageLinks.smallThumbnail;
      return(
         <div className="book">
         <div className="book-top">
-          <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: "url("+`${this.props.content.imageLinks.smallThumbnail}` +")" }}></div>
+          <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: "url("+`${bookImage}` +")" }}></div>
           <div className="book-shelf-changer">
             <select value={this.state.shelf} onChange={this.handleChange} >
               <option value="none" disabled>Move to...</option>
-              <option value="">None</option>
+              <option value="none">None</option>
               <option value="currentlyReading">Currently Reading</option>
               <option value="wantToRead">Want to Read</option>
               <option value="read">Read</option>
