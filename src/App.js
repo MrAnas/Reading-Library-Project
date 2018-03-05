@@ -36,22 +36,28 @@ updateShelf = (book,shelf) => {
   }
 
   SearchForBook = (query) =>{
-    // Please help me with this
+    if(query == null ){
+      this.setState(
+        {queryResult: []}
+    )}
+    else {
+      // Complexity of n^2
     BooksAPI.search(query).then((bookInSearchResults)=>{
-      this.state.books.map((bookOnHomePage) => {
-      bookInSearchResults.shelf = 'none'
-      console.log(bookInSearchResults.shelf)
-      console.log(bookInSearchResults.id === bookOnHomePage.id)
-      if(bookInSearchResults.id === bookOnHomePage.id){
-      bookInSearchResults.shelf = bookOnHomePage.shelf
-      
-    }
-    console.log(bookInSearchResults.shelf)
+      const bookMainPage = this.state.books;
+      const bookInSearch = bookInSearchResults;
+      let result = []
+      for(var i = 0; i < bookMainPage.length ; i++ ){
+        for(var j = 0; j < bookInSearchResults.length ; j++ ){
+            if(bookMainPage[i].id === bookInSearchResults[j].id){
+              bookInSearchResults[j].shelf = bookMainPage[i].shelf;
+            }
+        }
+      }
     this.setState(
       {queryResult: bookInSearchResults}
-  )})
-
+  )
 })
+}
 }
 
 

@@ -8,9 +8,14 @@ class SearchBook extends Component{
         query: '',
     }
 
-    updateQuery = (query) => {
+    updateQuery = (query) => {      
+    if(query === ''){
+        this.setState({query: ''});
+        this.props.queryResult();
+    }else{ 
         this.setState({query});
         this.props.queryResult(query); 
+    }
     }
 
     clearQuery = () => {
@@ -18,10 +23,8 @@ class SearchBook extends Component{
     }
     
     render(){
+        
         let result = this.props.query
-        if (this.props.query){
-            result = this.props.query
-        }
         return(     
             <div> 
             <div className="search-books-bar">

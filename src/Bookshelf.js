@@ -3,20 +3,15 @@ import PropTypes from 'prop-types'
 import Book from './Book'
 
 
-class BookShelf extends Component{
-    static propTypes = {
-        books: PropTypes.array.isRequired,
-        onSelectShelf: PropTypes.func.isRequired
-    }
- render(){
+function BookShelf(props){
      return(
         <div className="bookshelf">
-        <h2 className="bookshelf-title">{this.props.shelfTitle}</h2>
+        <h2 className="bookshelf-title">{props.shelfTitle}</h2>
         <div className="bookshelf-books">
           <ol className="books-grid">
-                {this.props.books.map((book) => (
+                {props.books.map((book) => (
                   <li key={book.id}>
-                       <Book content={book} onSelectShelf={this.props.onSelectShelf}/>
+                       <Book content={book} onSelectShelf={props.onSelectShelf}/>
                   </li>
                 )
                 )}   
@@ -24,7 +19,6 @@ class BookShelf extends Component{
         </div>
     </div>  
      )
- }
 }
 
 export default BookShelf
